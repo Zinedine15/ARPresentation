@@ -16,36 +16,74 @@
         flex-direction: column;
         min-height: 100vh;
         color: black;
-
-        background-image: url('img/black.jpeg'); /* Ruta correcta de la imagen */
-        background-size: cover; /* Ajusta la imagen para que cubra todo el área */
-        background-position: center; /* Centra la imagen en el header */
+        background-image: url('img/black.jpeg'); 
+        background-size: cover; 
+        background-position: center; 
       }
 
       header {
-        background-image: url('img/dark-font.jpg'); /* Ruta correcta de la imagen */
-        background-size: cover; /* Ajusta la imagen para que cubra todo el área */
-        background-position: center; /* Centra la imagen en el header */
+        background-image: url('img/dark-font.jpg'); 
+        background-size: cover; 
+        background-position: center; 
         color: gray;
         padding: 20px;
         text-align: center;
         color: white;
-        font-family: monaco,Consolas,Lucida Console,monospace;
+        font-family: monaco, Consolas, Lucida Console, monospace;
       }
-      
 
       header h1 {
         margin: 0;
         font-size: 30px;
         font-weight: bolder;
-
       }
+
       .description {
         text-align: center;
         padding: 20px;
         background-color: gray;
         color: white;
         font-size: 15px;
+      }
+
+      /* Estilos para la galería */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+      }
+
+      .gallery-item img {
+        width: 20%; 
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+      }
+
+      .gallery-text {
+        position: absolute;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
       }
 
       footer {
@@ -59,22 +97,26 @@
       footer p {
         margin: 5px;
       }
-      
+
       footer a {
         color: white;
         margin: 0 10px;
         text-decoration: none;
       }
+
       footer a:hover {
         text-decoration: underline;
       }
+
       footer .social-icons {
         margin-top: 10px;
       }
+
       footer .social-icons a {
         display: inline-block;
         margin: 0 10px;
       }
+
       footer .social-icons img {
         width: 24px;
         height: 24px;
@@ -85,13 +127,33 @@
     <header>
       <h1>Visualizador de Modelos 3D - Robot Expressivo</h1>
     </header>
-    
+
     <section class="description">
       <p>Esta página te permite visualizar e interactuar con un modelo 3D del Robot Expressivo. Utiliza los controles de cámara y explora el modelo en realidad aumentada.</p>
     </section>
-    
+
+    <!-- Galería de imágenes -->
+    <section class="gallery">
+      <div class="gallery-item">
+        <img src="img/poster.webp" alt="Modelo Dado" onclick="changeModel('models/single_dice.glb')">
+        <div class="gallery-text">Dado</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/among_us.webp" alt="Modelo Among Us" onclick="changeModel('models/among_us_3d_modelo_con_esqueleto.glb')">
+        <div class="gallery-text">Among Us</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/pokemon.webp" alt="Modelo Dragonite" onclick="changeModel('models/pokemon_dragonite.glb')"> 
+        <div class="gallery-text">Dragonite</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/posterRobot.webp" alt="Modelo Robot Expressivo" onclick="changeModel('models/RobotExpressive.glb')"> 
+        <div class="gallery-text">Robot Expressivo</div>
+      </div>
+    </section>
+
     <!-- <model-viewer> HTML element -->
-    <model-viewer src="models/RobotExpressive.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay animation-name="Walking">
+    <model-viewer id="modelViewer" src="models/RobotExpressive.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay animation-name="Walking">
       <div class="progress-bar hide" slot="progress-bar">
         <div class="update-bar"></div>
       </div>
@@ -101,10 +163,18 @@
       <div id="ar-prompt">
         <img src="ar_hand_prompt.png">
       </div>
-    </model-viewer>  
-    
+    </model-viewer> 
+
+    <script>
+      function changeModel(modelPath) {
+        const modelViewer = document.getElementById('modelViewer');
+        modelViewer.src = modelPath; // Cambia el modelo 3D
+      }
+    </script>
+
     <script src="./js/script.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
     <br><br><br>
     <footer>
       <p>&copy; 2024 Derechos Reservados - Zinedine Acosta Hernández; Ana Esbeidy Cervantes</p>
